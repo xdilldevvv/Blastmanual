@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>JobBlastWA – Web Job Blast WhatsApp Manual</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Plus+Jakarta+Sans:wght@400;500;700&display=swap">
+<style>
+:root{--bg:#f2f7ff;--sf:#fff;--ink:#0a1f44;--mu:#4d6490;--ln:#d6e4ff;--b1:#0b3fd1;--b2:#1e6bff;--b3:#4fa3ff;--b4:#cfe3ff}
+@media(prefers-color-scheme:dark){:root{--bg:#061230;--sf:#0c1d4a;--ink:#e8f0ff;--mu:#9bb2e3;--ln:#1a3270;--b4:#16316e}}
+*{box-sizing:border-box;margin:0}[hidden]{display:none!important}
+html{scroll-behavior:smooth;scroll-padding-top:140px}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.6 'Plus Jakarta Sans',system-ui,sans-serif;padding-bottom:env(safe-area-inset-bottom,0)}
+h1,h2,h3{font-family:'Bricolage Grotesque',sans-serif;line-height:1.1}
+.wrap{max-width:1040px;margin:auto;padding:0 20px}
+nav{position:sticky;top:0;z-index:20;background:rgba(4,26,82,.94);backdrop-filter:blur(10px);padding-top:env(safe-area-inset-top,0)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{font:800 20px 'Bricolage Grotesque';color:#fff;text-decoration:none}.logo b{color:var(--b3)}
+.btn{display:inline-block;padding:12px 22px;border-radius:99px;background:#fff;color:var(--b1);font:700 15px 'Plus Jakarta Sans';text-decoration:none;border:0;cursor:pointer}
+.btn.solid{background:var(--b2);color:#fff}.btn.ghost{background:none;color:#fff;border:1.5px solid rgba(255,255,255,.5)}
+.btn:disabled{opacity:.6}
+.hero{background:radial-gradient(900px 500px at 85% 0,#2b7bff,transparent 60%),linear-gradient(160deg,#041a52,#0b3fd1);color:#fff;padding:30px 0 38px}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:center}
+@media(max-width:820px){.hero .wrap{grid-template-columns:1fr}}
+.hero h1{font-size:clamp(32px,6vw,54px);font-weight:800}.hero p{color:#cfe0ff;margin:12px 0 20px;max-width:46ch}
+.cta{display:flex;gap:10px;flex-wrap:wrap}
+.live{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);border-radius:20px;padding:18px}
+.lh{display:flex;justify-content:space-between;font-weight:700;margin-bottom:12px}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#18c76f;margin-right:8px;animation:p 1.4s infinite}
+@keyframes p{50%{opacity:.25}}
+.bar{height:12px;background:rgba(255,255,255,.18);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--b3),#8fd0ff);transition:width .6s}
+.st{display:flex;justify-content:space-between;font-size:13px;color:#cfe0ff;margin:8px 0}
+.log{list-style:none;padding:0;font-size:13px;height:104px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;gap:6px}
+.log li{display:flex;justify-content:space-between;background:rgba(255,255,255,.07);padding:6px 11px;border-radius:10px}.log b{color:#6dffb2}
+.tabs{position:sticky;top:calc(56px + env(safe-area-inset-top,0));z-index:15;background:var(--sf);border-bottom:1px solid var(--ln)}
+.tabs .wrap{display:flex;gap:8px;overflow-x:auto;padding:10px 20px;scrollbar-width:none}
+.tab{flex:none;padding:9px 16px;border-radius:99px;border:1.5px solid var(--ln);background:var(--bg);color:var(--ink);font:600 14px 'Plus Jakarta Sans';text-decoration:none;white-space:nowrap}
+.tab.on{background:var(--b2);border-color:var(--b2);color:#fff}
+.view{display:none;padding:26px 0 44px}.view.on{display:block}
+h2{font-size:clamp(28px,4.5vw,38px);font-weight:800;color:var(--b1);margin-bottom:8px}
+@media(prefers-color-scheme:dark){h2{color:var(--b3)}}
+.sub{color:var(--mu);margin-bottom:24px;max-width:56ch}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.card{background:var(--sf);border:1px solid var(--ln);border-radius:18px;padding:22px}
+.top{display:flex;justify-content:space-between;align-items:baseline}
+.badge{font-size:12px;font-weight:700;padding:3px 10px;border-radius:99px;background:var(--b4);color:var(--b1)}.badge.low{background:#ffe9c7;color:#9a5a00}
+.n{font:800 38px 'Bricolage Grotesque';color:var(--b2);margin:6px 0 2px}
+.stock .bar{background:var(--b4)}.stock .bar i{background:linear-gradient(90deg,var(--b1),var(--b3))}
+small{color:var(--mu)}
+.nums{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}.chip{background:var(--b4);color:var(--b1);padding:4px 10px;border-radius:99px;font-size:13px;font-weight:600}
+.take{display:flex;gap:8px;margin-top:8px}
+input,select,textarea{width:100%;padding:11px;border-radius:12px;border:1.5px solid var(--ln);background:var(--bg);color:var(--ink);font:inherit}
+.take input{width:80px}.take .btn{flex:1;padding:10px 14px;font-size:14px}
+.pick{margin-top:10px;display:grid;gap:8px}.pick label{font-weight:700;font-size:14px}.pick .btn{width:100%;padding:12px}
+.qchips{display:flex;gap:6px;flex-wrap:wrap}.qchip{border:1.5px solid var(--b3);background:var(--bg);color:var(--b1);padding:6px 14px;border-radius:99px;font:600 14px 'Plus Jakarta Sans';cursor:pointer}
+.stp{width:46px;border-radius:12px;border:1.5px solid var(--b3);background:var(--bg);color:var(--b1);font:700 20px sans-serif;cursor:pointer}
+.take input{text-align:center;flex:1;width:auto}.est{color:var(--b2);font-weight:700;min-height:18px}
+.taken{margin-top:12px;padding:12px;border-radius:14px;background:var(--b4);font-size:13px;word-break:break-all}
+.taken p{margin:6px 0}.taken .btn{width:100%;margin-top:6px;padding:10px;font-size:14px;text-align:center}
+.pg{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.price{text-align:center;display:flex;flex-direction:column;gap:6px}
+.q{font:800 30px 'Bricolage Grotesque';color:var(--b2)}.p{font:700 22px 'Bricolage Grotesque'}
+.price .btn{margin-top:8px;font-size:14px;padding:10px}
+.adm{display:grid;gap:8px;margin-bottom:18px}.adm label{font-weight:700;font-size:14px}.adm .btn{justify-self:start}
+.adm .btn:not(.solid){border:1.5px solid var(--b3)}
+.prow{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;margin-bottom:8px}.prow .btn{padding:8px 14px;border:1.5px solid var(--b3)}
+.msg{font-weight:700;font-size:14px;color:var(--b2);min-height:20px}
+.step{display:flex;gap:14px;background:var(--sf);border:1px solid var(--ln);border-radius:18px;padding:16px 18px;margin-bottom:12px;counter-increment:s}
+.step::before{content:counter(s);flex:none;width:36px;height:36px;border-radius:11px;background:var(--b2);color:#fff;font:800 17px/36px 'Bricolage Grotesque';text-align:center}
+.step p{color:var(--mu);font-size:15px}
+.note{padding:14px 18px;border-radius:14px;background:var(--b4);font-size:15px}
+.tg{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:20px}
+.stars{color:#ffb800;letter-spacing:2px}
+.owner{background:linear-gradient(160deg,#041a52,#0b3fd1);color:#fff;border-radius:26px;padding:30px}
+.owner h2{color:#fff}.owner p{color:#cfe0ff;margin:8px 0 18px}
+footer{text-align:center;color:var(--mu);font-size:13px;padding:24px 20px 36px}
+.pay{display:flex;flex-direction:column;gap:4px}.pay .pn{font:800 22px 'Bricolage Grotesque',sans-serif;color:var(--b2)}.pay .no{font:700 18px monospace;word-break:break-all}.pay .btn{margin-top:8px;padding:10px;font-size:14px}
+.vids{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 18px}
+.mtext{white-space:pre-wrap;color:var(--mu);font-size:14px;margin:8px 0 12px;max-height:180px;overflow-y:auto}
+.mrow{display:grid;gap:8px;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--ln)}
+.mrow .btn{justify-self:start;padding:8px 16px;font-size:14px;border:1.5px solid var(--b3)}
+.mpick{display:grid;gap:6px;margin-top:10px}.mpick select{width:100%;padding:10px;border-radius:12px;border:1.5px solid var(--ln);background:var(--bg);color:var(--ink);font:inherit}
+.dstat{text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px}.di{font-size:28px}.dv{font:800 30px 'Bricolage Grotesque',sans-serif;color:var(--b2)}
+.gbtn{border:1.5px solid var(--b3)}.qchip.on{background:var(--b2);color:#fff;border-color:var(--b2)}
+.ticker{background:#031445;color:#cfe0ff;overflow:hidden;white-space:nowrap;font-size:13px;padding:7px 0}
+.tick-track{display:inline-flex;animation:tick 30s linear infinite}.tick-track span{padding-right:36px}.tick-track b{color:#8fd0ff}
+@keyframes tick{to{transform:translateX(-50%)}}
+#dash .ticker{border-radius:14px;margin-bottom:16px;padding:10px 0}
+.gate{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:20px;overflow:auto;background:linear-gradient(135deg,#041a52,#0b3fd1,#1e6bff,#041a52);background-size:300% 300%;animation:gbg 14s ease infinite}
+@keyframes gbg{50%{background-position:100% 50%}}
+.orb{position:absolute;border-radius:50%;filter:blur(40px);opacity:.5;animation:flt 9s ease-in-out infinite}
+.o1{width:260px;height:260px;background:#4fa3ff;top:-60px;left:-60px}.o2{width:220px;height:220px;background:#8fd0ff;bottom:-50px;right:-40px;animation-delay:-3s}.o3{width:160px;height:160px;background:#1e6bff;top:55%;left:60%;animation-delay:-6s}
+@keyframes flt{50%{transform:translate(30px,-40px) scale(1.15)}}
+.gcard{position:relative;width:100%;max-width:380px;background:rgba(255,255,255,.12);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.3);border-radius:26px;padding:28px 24px;color:#fff;display:grid;gap:12px;animation:rise .7s cubic-bezier(.2,.8,.2,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(40px) scale(.96)}}
+.glogo{font:800 32px 'Bricolage Grotesque',sans-serif;text-align:center;animation:pl2 2.4s ease-in-out infinite}.glogo b{color:#8fd0ff}
+@keyframes pl2{50%{transform:scale(1.05)}}
+.gsub{text-align:center;color:#cfe0ff;font-size:14px}
+.gcard .btn{width:100%;text-align:center}.gg{background:#fff;color:#1a1a1a;display:flex;gap:10px;align-items:center;justify-content:center}
+.gor{display:flex;align-items:center;gap:10px;color:#cfe0ff;font-size:13px}.gor::before,.gor::after{content:"";flex:1;height:1px;background:rgba(255,255,255,.3)}
+.gcard input{background:rgba(255,255,255,.95);color:#0a1f44;border:0}
+.gp{display:grid;gap:8px}.gmsg{min-height:20px;font-size:13px;font-weight:700;color:#ffe9a8;text-align:center}
+.glink{background:none;border:0;color:#cfe0ff;text-decoration:underline;cursor:pointer;font:inherit;font-size:13px}
+@media(prefers-reduced-motion:reduce){.gate,.orb,.gcard,.glogo{animation:none!important}}
+.gfeat{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}.gfeat span{background:rgba(255,255,255,.15);padding:4px 10px;border-radius:99px;font-size:12px}
+.team{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}.tm{text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px}.tav{width:72px;height:72px;border-radius:22px;background:linear-gradient(135deg,var(--b3),var(--b1));color:#fff;display:grid;place-items:center;font:800 30px 'Bricolage Grotesque',sans-serif}.trole{background:var(--b4);color:var(--b1);font-size:12px;font-weight:700;padding:3px 12px;border-radius:99px}.tm p{color:var(--mu);font-size:14px}.tm .cta{justify-content:center;margin-top:6px}
+.fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:30;background:#d93025;color:#fff;font:700 14px 'Plus Jakarta Sans',sans-serif;padding:12px 18px;border-radius:99px;text-decoration:none;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+.lp{display:grid;gap:8px}.lp label{font-weight:700;font-size:14px;margin-top:4px}.lp input,.lp select,.lp textarea{width:100%;padding:11px;border-radius:12px;border:1.5px solid var(--ln);background:var(--bg);color:var(--ink);font:inherit}
+.msg.err{color:#d93025}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo" href="#stok">JobBlast<b>WA</b></a><div style="display:flex;gap:8px"><button class="btn" id="navAuth" type="button" style="padding:8px 16px;font-size:14px">👋 Hai</button><a class="btn solid" style="padding:8px 18px;font-size:14px" data-wa>Hubungi</a></div></div></nav>
+
+<header class="hero"><div class="wrap">
+<div><h1>Ambil job blast WhatsApp manual, salin nomor, langsung kerjakan.</h1>
+<p>Pilih job, ambil nomor dari stok, lalu blast manual satu per satu dari WhatsApp kamu. Stok berkurang otomatis, jadi tidak ada nomor ganda.</p>
+<div class="cta"><a class="btn" data-wa>Hubungi Owner</a><a class="btn ghost" href="#cara">Cara kerja</a></div></div>
+<div class="live" aria-live="polite"><div class="lh"><span><i class="dot"></i>Blast real time</span><span id="pct">0%</span></div>
+<div class="bar"><i id="fill"></i></div>
+<div class="st"><span>Terkirim: <b id="sent">0</b></span><span>Target: 500</span><span>Sisa: <b id="left">500</b></span></div>
+<ul class="log" id="log"></ul></div>
+</div></header>
+
+<div class="tabs"><div class="wrap">
+<a class="tab" href="#stok">📦 Stok &amp; Ambil Nomor</a><a class="tab" href="#harga">💰 Fee Job</a><a class="tab" href="#cara">📋 Cara Kerja</a><a class="tab" href="#materi">💬 Materi Pesan</a><a class="tab" href="#dash">📊 Dashboard</a><a class="tab" href="#record">🎥 Tutorial Record</a><a class="tab" href="#fee">🧾 Cara Dapat Fee</a><a class="tab" href="#testi">⭐ Testimoni</a><a class="tab" href="#owner">👤 Owner</a>
+<a class="tab" data-ch>📢 Channel Testi</a><a class="tab" data-wa>💬 WhatsApp</a><a class="tab" data-tg>✈️ Telegram</a><a class="tab" href="#lapor">🚨 Lapor Kendala</a><a class="tab" href="#admin">🔐 Admin</a>
+</div></div>
+
+<section id="stok" class="view"><div class="wrap">
+<h2>Stok nomor job blast</h2>
+<p class="sub">Pilih kategori, isi jumlah nomor, lalu tekan Ambil &amp; salin untuk mengambil job. Nomor langsung keluar dari stok untuk semua orang.</p>
+<div class="grid" id="stockGrid">Memuat stok...</div>
+</div></section>
+
+<section id="harga" class="view"><div class="wrap">
+<h2>Fee job blast</h2>
+<p class="sub">Fee yang kamu dapat setelah menyelesaikan job, sesuai jumlah nomor yang dikerjakan. Butuh paket lebih besar? Tanyakan ke owner.</p>
+<div class="pg" id="priceGrid"></div>
+</div></section>
+
+<section id="cara" class="view"><div class="wrap">
+<h2>Cara kerja job blast manual</h2>
+<p class="sub">Semua pesan dikirim manual satu per satu, jadi pola kirimnya mirip pengguna biasa.</p>
+<div class="step"><div><h3>Ambil nomor dari stok</h3><p>Buka Stok Nomor, isi jumlah, tekan Ambil &amp; salin.</p></div></div>
+<div class="step"><div><h3>Salin materi pesan</h3><p>Pilih materi setelah mengambil nomor, atau buka tab Materi Pesan, lalu salin teksnya. Tidak perlu minta ke owner.</p></div></div>
+<div class="step"><div><h3>Pilih paket</h3><p>Tentukan jumlah nomor sesuai paket di tab Fee Job.</p></div></div>
+<div class="step"><div><h3>Blast manual</h3><p>Kirim pesan satu per satu dengan jeda acak, lalu laporkan hasilnya ke owner.</p></div></div>
+<div class="note">Tips: pakai kalimat yang tidak terlalu menjual, hindari link mencurigakan, dan sertakan nama toko agar tidak ditandai spam.</div>
+</div></section>
+
+<section id="dash" class="view"><div class="wrap">
+<h2>Dashboard</h2>
+<p class="sub">Ringkasan job. Pengambilan job dan nomor diambil dihitung otomatis dari database.</p>
+<div class="ticker" id="ticker" hidden><div class="tick-track" id="tickTrack"></div></div>
+<div class="grid" id="dashGrid"></div>
+<small id="dashUpd" style="display:block;margin:12px 0 16px"></small>
+</div></section>
+
+<section id="lapor" class="view"><div class="wrap">
+<h2>Lapor kendala</h2>
+<p class="sub">Ada masalah? Pilih tujuan laporan, ceritakan kendalanya, lalu kirim lewat WhatsApp atau Telegram.</p>
+<div class="card lp">
+<label for="lpTo">Kirim laporan ke</label>
+<select id="lpTo"><option value="owner">Owner · Pinokioo</option><option value="coowner">Co Owner · Mala</option><option value="dev">Developer · Padil (masalah website)</option></select>
+<label for="lpCat">Jenis kendala</label>
+<select id="lpCat"><option>Stok tidak muncul</option><option>Nomor tidak valid atau tidak bisa dipakai</option><option>Gagal ambil job</option><option>Fee belum diterima</option><option>Materi pesan bermasalah</option><option>Website error atau tampilan rusak</option><option>Lainnya</option></select>
+<label for="lpName">Nama atau username</label><input id="lpName" maxlength="40">
+<label for="lpMsg">Ceritakan kendalanya</label><textarea id="lpMsg" rows="5" maxlength="1000" placeholder="Contoh: stok Nomor Fresh tidak muncul sejak jam 10 pagi"></textarea>
+<div class="cta"><button class="btn solid" id="lpWA" type="button">Kirim via WhatsApp</button><button class="btn" id="lpTG" type="button" style="border:1.5px solid var(--b3)">Kirim via Telegram</button></div>
+<div class="msg" id="lpOut"></div>
+<small>Sertakan jumlah nomor dan waktu kejadian supaya cepat ditangani. Tangkapan layar bisa dilampirkan di chat setelah pesan terbuka.</small>
+</div>
+</div></section>
+
+<section id="materi" class="view"><div class="wrap">
+<h2>Materi pesan</h2>
+<p class="sub">Pilih teks di bawah, salin, lalu tempel saat blast. Admin bisa menambah materi sendiri.</p>
+<div class="grid" id="materiGrid"></div>
+</div></section>
+
+<section id="record" class="view"><div class="wrap">
+<h2>Tutorial record yang benar</h2>
+<p class="sub">Rekam layar saat blast sebagai bukti job. Ikuti langkah ini supaya laporanmu mudah diperiksa.</p>
+<div class="vids" id="videoLinks"></div>
+<div style="margin:0 0 18px"><video controls playsinline preload="metadata" src="tutorial-record.mp4" style="width:100%;max-width:320px;border-radius:16px;display:block;background:#000"></video><small>Tonton video ini sebelum mulai merekam.</small></div>
+<div class="steps">
+<div class="step"><div><h3>Siapkan perekam layar</h3><p>Aktifkan screen recorder bawaan HP, lalu matikan notifikasi pribadi agar tidak ikut terekam.</p></div></div>
+<div class="step"><div><h3>Mulai rekam dari awal</h3><p>Rekam sebelum mulai bekerja: tunjukkan halaman Ambil &amp; salin dan nomor yang kamu ambil.</p></div></div>
+<div class="step"><div><h3>Blast tanpa dipotong</h3><p>Kirim pesan satu per satu. Nomor tujuan dan tanda terkirim harus terlihat jelas di layar.</p></div></div>
+<div class="step"><div><h3>Jangan pause atau edit</h3><p>Rekam satu kali dari awal sampai nomor terakhir. Jangan dipotong atau dipercepat.</p></div></div>
+<div class="step"><div><h3>Kirim bukti ke owner</h3><p>Simpan rekaman, lalu kirim ke owner lewat WhatsApp bersama jumlah nomor yang selesai.</p></div></div>
+</div>
+<div class="note" style="margin-top:14px">Rekaman yang terpotong atau tidak menampilkan nomor tujuan sulit diverifikasi.</div>
+<a class="btn solid" style="margin-top:16px" data-wa>Kirim rekaman ke owner</a>
+</div></section>
+
+<section id="fee" class="view"><div class="wrap">
+<h2>Cara dapat fee</h2>
+<p class="sub">Fee adalah penghasilan yang kamu terima setelah menyelesaikan job blast. Begini alurnya.</p>
+<div class="steps">
+<div class="step"><div><h3>Ambil job</h3><p>Buka tab Stok, pilih jumlah nomor, lalu tekan Ambil &amp; salin.</p></div></div>
+<div class="step"><div><h3>Kerjakan dan rekam</h3><p>Blast manual satu per satu sambil merekam layar sesuai Tutorial Record.</p></div></div>
+<div class="step"><div><h3>Kirim laporan</h3><p>Kirim rekaman dan jumlah nomor yang selesai ke owner lewat WhatsApp.</p></div></div>
+<div class="step"><div><h3>Owner memeriksa</h3><p>Owner mencocokkan rekamanmu dengan nomor yang kamu ambil.</p></div></div>
+<div class="step"><div><h3>Terima fee</h3><p>Fee sesuai paket di tab Fee Job dikirim ke akun e-wallet atau bank yang kamu berikan ke owner.</p></div></div>
+</div>
+<div class="note" style="margin-top:14px">Sertakan nomor DANA, OVO, atau rekening tujuan fee kamu saat melapor.</div>
+<a class="btn solid feeproof" style="margin-top:16px">Kirim laporan job ke owner</a>
+</div></section>
+
+<section id="testi" class="view"><div class="wrap">
+<h2>Testimoni pelanggan</h2>
+<p class="sub">Cerita dari member yang sudah ambil job blast di sini.</p>
+<a class="btn solid" data-ch>📢 Lihat semua testi di Channel Telegram</a>
+<div class="tg">
+<div class="card"><div class="stars">★★★★★</div><p>Admin ramah, job-nya jelas dan stok nomornya selalu update.</p><small>Rizky, member</small></div>
+<div class="card"><div class="stars">★★★★★</div><p>Nomor tidak dobel, jadi kerja lebih tenang.</p><small>Salsa, member</small></div>
+<div class="card"><div class="stars">★★★★☆</div><p>Respon cepat, job selesai sesuai jadwal.</p><small>Nadia, member</small></div>
+</div>
+</div></section>
+
+<section id="owner" class="view"><div class="wrap">
+<h2>Tim JobBlastWA</h2>
+<p class="sub">Kenalan dengan tim di balik JobBlastWA.</p>
+<div class="team">
+<div class="card tm"><div class="tav">P</div><h3>Pinokioo</h3><span class="trole">Owner</span><p>Mengelola stok nomor, daftar job, dan menjawab pertanyaan member.</p><div class="cta"><a class="btn solid" data-wa>Chat WhatsApp</a><a class="btn" data-tg style="border:1.5px solid var(--b3)">Chat Telegram</a><a class="btn" href="#lapor" data-to="owner" style="border:1.5px solid var(--b3)">🚨 Lapor ke Owner</a></div></div>
+<div class="card tm"><div class="tav">M</div><h3>Mala</h3><span class="trole">Co Owner</span><p>Mendampingi owner mengelola JobBlastWA.</p><div class="cta"><a class="btn" href="#lapor" data-to="coowner" style="border:1.5px solid var(--b3)">🚨 Lapor ke Mala</a></div></div>
+<div class="card tm"><div class="tav">P</div><h3>Padil</h3><span class="trole">Developer</span><p>Membangun dan merawat website JobBlastWA.</p><div class="cta"><a class="btn" href="#lapor" data-to="dev" style="border:1.5px solid var(--b3)">🚨 Lapor ke Padil</a></div></div>
+</div></div></section>
+
+<section id="admin" class="view"><div class="wrap">
+<h2>Admin</h2>
+<div id="loginBox" class="card adm">
+<label for="em">Email</label><input id="em" type="email" autocomplete="username">
+<label for="pw">Password</label><input id="pw" type="password" autocomplete="current-password">
+<button class="btn solid" id="login" type="button">Masuk</button><div class="msg" id="loginMsg"></div>
+</div>
+<div id="adminBox" hidden>
+<div class="card adm"><h3>Tambah stok nomor</h3>
+<label for="stkCat">Kategori</label><select id="stkCat"></select>
+<label for="stkNums">Daftar nomor (satu per baris, format 08xx atau 62xx)</label><textarea id="stkNums" rows="5"></textarea>
+<button class="btn solid" id="stkAdd" type="button">Tambah Stok</button><div class="msg" id="stkMsg"></div></div>
+<div class="card adm"><h3>Edit fee</h3><div id="priceRows"></div>
+<div class="cta"><button class="btn" id="priceNew" type="button">+ Tambah paket</button><button class="btn solid" id="priceSave" type="button">Simpan fee</button></div>
+<div class="msg" id="priceMsg"></div></div>
+<div class="card adm"><h3>Kelola materi pesan</h3><div id="materiRows"></div>
+<div class="cta"><button class="btn" id="materiNew" type="button">+ Tambah materi</button><button class="btn solid" id="materiSave" type="button">Simpan materi</button></div>
+<div class="msg" id="materiMsg"></div></div>
+<div class="card adm"><h3>Data dashboard</h3>
+<label for="dSaldo">Saldo (angka, tanpa titik)</label><input id="dSaldo" inputmode="numeric">
+<label for="dPesan">Total pesan terkirim</label><input id="dPesan" inputmode="numeric">
+<button class="btn solid" id="dashSave" type="button">Simpan dashboard</button><div class="msg" id="dashMsg"></div>
+<small>Pengambilan job dan nomor diambil dihitung otomatis dari database. Isi dengan data yang sebenarnya.</small></div>
+<div class="card adm"><h3>Fee yang sudah dibayarkan (tampil di ticker)</h3>
+<label for="pUser">Username penerima</label><input id="pUser" autocapitalize="none">
+<label for="pAmt">Nominal fee (angka)</label><input id="pAmt" inputmode="numeric">
+<button class="btn solid" id="pAdd" type="button">Tambah ke ticker</button><div class="msg" id="pMsg"></div>
+<div id="pList"></div>
+<small>Isi hanya fee yang benar-benar sudah dibayarkan. Di ticker, nama penerima ditampilkan sebagian.</small></div>
+<button class="btn" id="logout" type="button" style="border:1.5px solid var(--b3)">Keluar</button>
+</div>
+</div></section>
+
+<a class="fab" href="#lapor">🚨 Lapor</a>
+<footer>© 2026 JobBlastWA. Gunakan job blast sesuai aturan WhatsApp dan hukum yang berlaku.</footer>
+
+<div class="gate" id="gate" hidden>
+<div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+<div class="gcard">
+<div class="glogo">JobBlast<b>WA</b></div>
+<p class="gsub">Selamat datang! Ambil job blast WhatsApp manual dengan mudah.</p>
+<div class="gfeat"><span>📦 Stok real time</span><span>💬 Materi siap salin</span><span>🧾 Fee job</span></div>
+<input id="nick" placeholder="Nama panggilan kamu (boleh dikosongkan)" maxlength="20" autocomplete="nickname">
+<button class="btn solid" id="gStart" type="button">Mulai 🚀</button>
+</div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+// ====== ISI BAGIAN INI ======
+const SUPABASE_URL='https://wzssibckmxmyoskrwmnz.supabase.co';
+const SUPABASE_KEY='sb_publishable_BnZhupSz_4P2rCrkEY9pnA_8W5aTdE-';
+const WA='6281234567890';        // nomor WhatsApp owner (format 62...)
+const TG_OWNER='kelpinnnee';  // username Telegram owner, tanpa @
+const TG_CH='Blastt_manualll';      // username channel testi, tanpa @
+// ============================
+if(typeof supabase==='undefined'){document.getElementById('stockGrid').textContent='Library Supabase gagal dimuat. Cek koneksi internet lalu muat ulang halaman.';throw new Error('supabase library missing');}
+const sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+function explain(e){
+  const m=(e&&e.message)||String(e);
+  if(/ISI-/.test(SUPABASE_URL+SUPABASE_KEY))return 'SUPABASE_URL dan SUPABASE_KEY belum diisi di index.html.';
+  if(/fetch|network/i.test(m))return 'Tidak bisa terhubung ke Supabase. Cek SUPABASE_URL dan koneksi internet.';
+  if(/function|schema cache/i.test(m))return 'Fungsi database belum ada. Jalankan setup.sql di Supabase SQL Editor.';
+  if(/JWT|api.?key/i.test(m))return 'SUPABASE_KEY salah. Pakai anon public key dari Project Settings > API.';
+  return m;
+}
+const $=id=>document.getElementById(id);
+const el=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!==undefined)e.textContent=x;return e;};
+const CATS=['Nomor Fresh','Nomor Warm-up','Nomor Aged','Nomor Business'];
+let LAST=null,ADMIN=false,PRICES=[];const QTY={};
+try{LAST=JSON.parse(localStorage.getItem('lastTake')||'null');}catch(e){}
+const link=(s,u)=>document.querySelectorAll(s).forEach(a=>{a.href=u;a.target='_blank';a.rel='noopener';});
+link('[data-wa]',`https://wa.me/${WA}?text=`+encodeURIComponent('Halo, saya mau tanya job blast WhatsApp manual.'));
+link('[data-tg]','https://t.me/'+TG_OWNER);link('[data-ch]','https://t.me/'+TG_CH);
+CATS.forEach(c=>$('stkCat').append(new Option(c,c)));
+
+async function copy(t,b){
+  try{await navigator.clipboard.writeText(t);}catch(e){const a=el('textarea');a.value=t;a.style.cssText='position:fixed;opacity:0';document.body.append(a);a.select();try{document.execCommand('copy');}catch(_){}a.remove();}
+  if(b){const o=b.textContent;b.textContent='Tersalin ✔';setTimeout(()=>b.textContent=o,1200);}
+}
+function materiPicker(){
+  const w=el('div','mpick');
+  if(!MAT.length){w.append(el('small',null,'Belum ada materi pesan.'));return w;}
+  const sel=el('select');MAT.forEach((m,i)=>sel.append(new Option(m.title,String(i))));
+  const b=el('button','btn solid','Salin materi pesan');b.type='button';b.onclick=()=>copy(MAT[+sel.value].body,b);
+  w.append(el('small',null,'Materi pesan untuk dikirim:'),sel,b);return w;
+}
+function lastBox(){
+  const w=el('div','taken'),t=LAST.take;
+  w.append(el('b',null,`✔ ${t.length} nomor sudah kamu ambil`),el('p',null,t.join(', ')));
+  const c=el('button','btn','Salin lagi');c.onclick=()=>copy(t.join('\n'),c);
+  w.append(c,materiPicker());return w;
+}
+async function loadStock(){
+  const {data,error}=await sb.rpc('stock_summary');
+  const g=$('stockGrid');
+  if(error){g.textContent='Gagal memuat stok: '+explain(error);return;}
+  const m={};(data||[]).forEach(r=>m[r.category]=r);g.innerHTML='';
+  CATS.forEach(cat=>{
+    const r=m[cat]||{total:0,samples:[]},v=Number(r.total),c=el('div','card stock'),top=el('div','top');
+    top.append(el('h3',null,cat),el('span','badge'+(v<=5?' low':''),v?(v<=5?'Hampir habis':'Tersedia'):'Kosong'));
+    const bar=el('div','bar'),f=el('i');f.style.width=Math.min(100,v*2)+'%';bar.append(f);
+    c.append(top,el('div','n',String(v)),bar,el('small',null,v?'nomor tampil tersamar sampai diambil':'Stok kosong, hubungi owner'));
+    if(v){
+      const box=el('div','nums');r.samples.forEach(s=>box.append(el('span','chip',s)));
+      const mx=Math.min(50,v),w=el('div','pick'),lab=el('label',null,'Mau salin berapa nomor?'),qc=el('div','qchips'),row=el('div','take'),i=el('input'),est=el('small','est'),b=el('button','btn solid'),minus=el('button','stp','−'),plus=el('button','stp','+');
+      i.type='number';i.min=1;i.max=mx;i.inputMode='numeric';i.setAttribute('aria-label','Jumlah nomor');minus.type=plus.type=b.type='button';
+      const set=n=>{n=Math.max(1,Math.min(mx,parseInt(n,10)||1));QTY[cat]=n;i.value=n;b.textContent='Ambil & salin '+n+' nomor';const t=PRICES.find(x=>parseInt(x.qty,10)===n);est.textContent=t?'Harga paket: '+t.price:'';return n;};
+      [5,10,15,mx].filter((n,k,a)=>n<=mx&&a.indexOf(n)===k).forEach(n=>{const q=el('button','qchip',n===mx&&![5,10,15].includes(n)?'Semua '+n:String(n));q.type='button';q.onclick=()=>set(n);qc.append(q);});
+      minus.onclick=()=>set(+i.value-1);plus.onclick=()=>set(+i.value+1);i.onchange=()=>set(i.value);
+      b.onclick=()=>claim(cat,set(i.value),b);set(QTY[cat]||5);
+      row.append(minus,i,plus);w.append(lab,qc,row,est,b);c.append(box,w);
+    }
+    if(LAST&&LAST.cat===cat)c.append(lastBox());
+    g.append(c);
+  });
+}
+async function claim(cat,q,b){
+  b.disabled=true;
+  const {data,error}=await sb.rpc('claim_numbers',{cat,qty:Math.max(1,parseInt(q,10)||1)});
+  b.disabled=false;
+  if(error||!data||!data.length){alert(error?error.message:'Stok habis, coba lagi.');return loadStock();}
+  LAST={cat,take:data};
+  try{localStorage.setItem('lastTake',JSON.stringify(LAST));}catch(e){}
+  copy(data.join('\n'));loadStock();
+}
+function drawPrice(){
+  const g=$('priceGrid');g.innerHTML='';
+  PRICES.forEach(t=>{
+    const c=el('div','card price'),a=el('a','btn solid','Ambil job ini');
+    a.href=`https://wa.me/${WA}?text=`+encodeURIComponent(`Halo, saya mau ambil job blast ${t.qty} (${t.price}).`);a.target='_blank';a.rel='noopener';
+    c.append(el('div','q',t.qty),el('div','p',t.price),a);g.append(c);
+  });
+}
+async function loadPrices(){const {data}=await sb.from('prices').select('*').order('sort');PRICES=data||[];drawPrice();if(ADMIN)drawRows();}
+function drawRows(){
+  const r=$('priceRows');r.innerHTML='';
+  PRICES.forEach((t,i)=>{
+    const row=el('div','prow'),q=el('input'),p=el('input'),x=el('button','btn','✕');
+    q.value=t.qty;p.value=t.price;q.placeholder='20 nomor';p.placeholder='Rp12.000';
+    q.oninput=()=>t.qty=q.value;p.oninput=()=>t.price=p.value;x.type='button';x.onclick=()=>{PRICES.splice(i,1);drawRows();};
+    row.append(q,p,x);r.append(row);
+  });
+}
+$('priceNew').onclick=()=>{PRICES.push({qty:'',price:''});drawRows();};
+$('priceSave').onclick=async()=>{
+  const rows=PRICES.filter(t=>t.qty.trim()&&t.price.trim()).map((t,i)=>({qty:t.qty.trim(),price:t.price.trim(),sort:i+1}));
+  let e=(await sb.from('prices').delete().gte('id',0)).error;
+  if(!e&&rows.length)e=(await sb.from('prices').insert(rows)).error;
+  $('priceMsg').textContent=e?'Gagal: '+e.message:'Fee tersimpan.';loadPrices();
+};
+$('stkAdd').onclick=async()=>{
+  const seen=new Set(),rows=[];let bad=0;
+  $('stkNums').value.split(/[\n,;]+/).map(x=>x.replace(/[\s\-().]/g,'')).filter(Boolean).forEach(x=>{
+    let n=x.replace(/^\+/,'');if(n[0]==='0')n='62'+n.slice(1);
+    if(/^62\d{8,13}$/.test(n)&&!seen.has(n)){seen.add(n);rows.push({category:$('stkCat').value,phone:n});}else bad++;
+  });
+  if(!rows.length){$('stkMsg').textContent='Tidak ada nomor valid.';return;}
+  const {error}=await sb.from('numbers').upsert(rows,{onConflict:'phone',ignoreDuplicates:true});
+  $('stkMsg').textContent=error?'Gagal: '+error.message:`${rows.length} nomor diproses, yang sudah ada dilewati${bad?`, ${bad} tidak valid`:''}.`;
+  if(!error)$('stkNums').value='';loadStock();
+};
+async function checkAdmin(){
+  const {data:{session}}=await sb.auth.getSession();ADMIN=false;
+  if(session){const {data}=await sb.rpc('is_admin');ADMIN=!!data;}
+  $('loginBox').hidden=ADMIN;$('adminBox').hidden=!ADMIN;if(ADMIN){drawRows();drawMateriRows();fillDash();loadPayouts();}
+  return !!session;
+}
+$('login').onclick=async()=>{
+  const {error}=await sb.auth.signInWithPassword({email:$('em').value.trim(),password:$('pw').value});
+  const has=await checkAdmin();
+  $('loginMsg').textContent=error?error.message:(has&&!ADMIN?'Akun ini bukan admin.':'');
+};
+$('logout').onclick=async()=>{await sb.auth.signOut();checkAdmin();};
+
+const views=[...document.querySelectorAll('.view')];
+function route(){
+  const v=(document.getElementById(location.hash.slice(1))||{}).closest?document.getElementById(location.hash.slice(1)).closest('.view'):null;
+  const on=v||$('stok');
+  views.forEach(s=>s.classList.toggle('on',s===on));
+  document.querySelectorAll('.tab[href]').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+on.id));
+  if(location.hash)window.scrollTo({top:document.querySelector('.hero').offsetHeight,behavior:'smooth'});
+}
+addEventListener('hashchange',route);route();
+loadStock();loadPrices();loadMateri();loadDash();loadTicker();checkAdmin();setInterval(()=>{const a=document.activeElement;if(!(a&&a.closest&&a.closest('#stockGrid')))loadStock();loadDash();loadTicker();},8000);
+
+let sent=0;const log=$('log');
+setInterval(()=>{
+  if(sent>=500){sent=0;log.innerHTML='';}
+  sent=Math.min(500,sent+1+Math.floor(Math.random()*4));const p=Math.round(sent/5);
+  $('sent').textContent=sent;$('left').textContent=500-sent;$('pct').textContent=p+'%';$('fill').style.width=p+'%';
+  const li=el('li');li.innerHTML='<span>08'+(12+Math.floor(Math.random()*80))+'-xxxx-'+('000'+Math.floor(Math.random()*10000)).slice(-4)+'</span><b>Terkirim ✔</b>';
+  log.append(li);while(log.children.length>6)log.firstChild.remove();
+},1100);
+let MAT=[];
+function drawMateri(){
+  const g=$('materiGrid');g.innerHTML='';
+  if(!MAT.length){g.append(el('small',null,'Belum ada materi.'));return;}
+  MAT.forEach(m=>{
+    const c=el('div','card materi'),b=el('button','btn solid','Salin teks');b.type='button';
+    b.onclick=()=>copy(m.body,b);
+    c.append(el('h3',null,m.title),el('p','mtext',m.body),b);g.append(c);
+  });
+}
+function drawMateriRows(){
+  const r=$('materiRows');r.innerHTML='';
+  MAT.forEach((m,i)=>{
+    const row=el('div','mrow'),t=el('input'),x=el('textarea'),d=el('button','btn','Hapus');
+    t.value=m.title;t.placeholder='Judul materi';x.value=m.body;x.rows=4;x.placeholder='Isi teks pesan';
+    t.oninput=()=>m.title=t.value;x.oninput=()=>m.body=x.value;
+    d.type='button';d.onclick=()=>{MAT.splice(i,1);drawMateriRows();};
+    row.append(t,x,d);r.append(row);
+  });
+}
+async function loadMateri(){const {data}=await sb.from('materials').select('*').order('sort');MAT=data||[];drawMateri();if(ADMIN)drawMateriRows();}
+$('materiNew').onclick=()=>{MAT.push({title:'',body:''});drawMateriRows();};
+$('materiSave').onclick=async()=>{
+  const rows=MAT.filter(m=>(m.title||'').trim()&&(m.body||'').trim()).map((m,i)=>({title:m.title.trim(),body:m.body.trim(),sort:i+1}));
+  let e=(await sb.from('materials').delete().gte('id',0)).error;
+  if(!e&&rows.length)e=(await sb.from('materials').insert(rows)).error;
+  $('materiMsg').textContent=e?'Gagal: '+e.message:'Materi tersimpan.';loadMateri();
+};
+
+let DST={r:{},m:{}};
+const dfmt=n=>(n===''||n===undefined||n===null||isNaN(Number(n)))?'-':Number(n).toLocaleString('id-ID');
+async function loadDash(){
+  const [a,b]=await Promise.all([sb.rpc('dashboard_stats'),sb.from('site_stats').select('*')]);
+  const m={};(b.data||[]).forEach(x=>m[x.key]=x);DST={r:(a.data&&a.data[0])||{},m};drawDash();
+}
+function drawDash(){
+  const g=$('dashGrid');g.innerHTML='';
+  const r=DST.r,m=DST.m,v=k=>m[k]?m[k].value:'';
+  const items=[['💰','Saldo',v('saldo')===''?'-':'Rp'+dfmt(v('saldo'))],['🧾','Pengambilan job',dfmt(r.claim_count)],['📦','Nomor diambil',dfmt(r.taken)],['✉️','Total pesan terkirim',dfmt(v('pesan'))]];
+  items.forEach((it,i)=>{
+    const c=el('div','card dstat');c.append(el('div','di',it[0]),el('small',null,it[1]),el('div','dv',it[2]));
+    const p=v('prev_saldo'),sv=v('saldo');
+    if(i===0&&p!==''&&sv!==''&&Number(p)!==Number(sv)){const d=Number(sv)-Number(p);c.append(el('span','badge'+(d<0?' low':''),(d>0?'▲ +':'▼ ')+dfmt(Math.abs(d))));}
+    g.append(c);
+  });
+  const u=m.saldo&&m.saldo.updated_at;
+  $('dashUpd').textContent=u?'Saldo diperbarui admin: '+new Date(u).toLocaleString('id-ID',{dateStyle:'medium',timeStyle:'short'}):'';
+}
+function fillDash(){$('dSaldo').value=DST.m.saldo?DST.m.saldo.value:'';$('dPesan').value=DST.m.pesan?DST.m.pesan.value:'';}
+$('dashSave').onclick=async()=>{
+  const cl=x=>String(x).replace(/\D/g,''),old=DST.m.saldo?DST.m.saldo.value:'',ns=cl($('dSaldo').value),now=new Date().toISOString();
+  const rows=[{key:'saldo',value:ns,updated_at:now},{key:'pesan',value:cl($('dPesan').value),updated_at:now}];
+  if(ns!==old)rows.push({key:'prev_saldo',value:old,updated_at:now});
+  const {error}=await sb.from('site_stats').upsert(rows);
+  $('dashMsg').textContent=error?'Gagal: '+error.message:'Dashboard tersimpan.';loadDash();
+};
+
+const rel=t=>{const m=Math.floor((Date.now()-new Date(t))/60000);return m<1?'baru saja':m<60?m+' menit lalu':m<1440?Math.floor(m/60)+' jam lalu':Math.floor(m/1440)+' hari lalu';};
+async function loadTicker(){
+  const {data}=await sb.rpc('recent_payouts');
+  const tk=$('ticker'),tr=$('tickTrack');tr.innerHTML='';
+  if(!data||!data.length){tk.hidden=true;return;}
+  for(let k=0;k<2;k++)data.forEach(x=>{const sp=el('span');sp.append('\uD83C\uDF89 ',el('b',null,x.name),' menerima fee Rp'+Number(x.amount).toLocaleString('id-ID')+' \u00B7 '+rel(x.created_at));tr.append(sp);});
+  tr.style.animationDuration=Math.max(20,data.length*6)+'s';tk.hidden=false;
+}
+async function loadPayouts(){
+  const {data}=await sb.from('payouts').select('*').order('created_at',{ascending:false}).limit(10);
+  const l=$('pList');l.innerHTML='';
+  (data||[]).forEach(x=>{
+    const row=el('div','mrow'),b=el('button','btn','Hapus');b.type='button';
+    row.append(el('small',null,x.username+' \u00B7 Rp'+Number(x.amount).toLocaleString('id-ID')+' \u00B7 '+rel(x.created_at)),b);
+    b.onclick=async()=>{await sb.from('payouts').delete().eq('id',x.id);loadPayouts();loadTicker();};
+    l.append(row);
+  });
+}
+$('pAdd').onclick=async()=>{
+  const u=$('pUser').value.trim().toLowerCase(),a=$('pAmt').value.replace(/\D/g,'');
+  if(!u||!a||Number(a)<=0){$('pMsg').textContent='Isi username dan nominal fee.';return;}
+  const {error}=await sb.from('payouts').insert({username:u,amount:Number(a)});
+  $('pMsg').textContent=error?'Gagal: '+error.message:'Tersimpan, sudah tampil di ticker.';
+  if(!error){$('pUser').value='';$('pAmt').value='';}
+  loadPayouts();loadTicker();
+};
+
+let NICK='';
+try{NICK=localStorage.getItem('nick')||'';}catch(e){}
+function drawNick(){$('navAuth').textContent=NICK?'Halo, '+NICK.slice(0,12):'👋 Hai';}
+function showGate(){$('nick').value=NICK;$('gate').hidden=false;document.body.style.overflow='hidden';}
+function hideGate(){$('gate').hidden=true;document.body.style.overflow='';}
+$('navAuth').onclick=showGate;
+$('gStart').onclick=()=>{
+  NICK=$('nick').value.trim().replace(/[<>]/g,'').slice(0,20);
+  try{localStorage.setItem('nick',NICK);localStorage.setItem('welcomed','1');}catch(e){}
+  drawNick();hideGate();
+};
+$('nick').addEventListener('keydown',e=>{if(e.key==='Enter')$('gStart').click();});
+drawNick();
+(()=>{let seen=false;try{seen=localStorage.getItem('welcomed')==='1';}catch(e){}if(!seen)showGate();})();
+
+(function(){
+  const g=id=>document.getElementById(id);
+  const owner=typeof WA_NUMBER!=='undefined'?WA_NUMBER:WA;
+  // Isi kontak Mala dan Padil di bawah ini (wa format 62..., tg tanpa @). Kalau kosong, laporan dikirim ke owner.
+  const P={owner:{n:'Pinokioo',r:'Owner',wa:owner,tg:TG_OWNER},coowner:{n:'Mala',r:'Co Owner',wa:'',tg:''},dev:{n:'Padil',r:'Developer',6285167846280:'',Astaormevv:''}};
+  try{const n=localStorage.getItem('nick');if(n)g('lpName').value=n;}catch(e){}
+  document.querySelectorAll('[data-to]').forEach(a=>a.addEventListener('click',()=>{g('lpTo').value=a.dataset.to;}));
+  const out=(t,err)=>{g('lpOut').className='msg'+(err?' err':'');g('lpOut').textContent=t;};
+  function build(){
+    const m=g('lpMsg').value.trim();
+    if(!m){out('Ceritakan kendalanya dulu.',true);return null;}
+    const c=P[g('lpTo').value];
+    return {c,text:'Laporan kendala JobBlastWA\nUntuk: '+c.n+' ('+c.r+')\nJenis: '+g('lpCat').value+'\nNama: '+(g('lpName').value.trim()||'-')+'\nPesan: '+m};
+  }
+  g('lpWA').onclick=()=>{
+    const b=build();if(!b)return;
+    window.open('https://wa.me/'+(b.c.wa||owner)+'?text='+encodeURIComponent(b.text),'_blank','noopener');
+    out(b.c.wa?'':'Kontak '+b.c.n+' belum diisi, laporan dikirim ke owner.');
+  };
+  g('lpTG').onclick=()=>{
+    const b=build();if(!b)return;
+    const p=navigator.clipboard&&navigator.clipboard.writeText?navigator.clipboard.writeText(b.text):Promise.reject();
+    window.open('https://t.me/'+(b.c.tg||TG_OWNER),'_blank','noopener');
+    p.then(()=>out('Teks laporan sudah disalin. Tempel di chat Telegram.'),()=>out('Buka Telegram lalu ketik laporanmu.'));
+  };
+})();
+
+// ====== LINK VIDEO TUTORIAL (tambah video di sini) ======
+const VIDEOS=[{t:'Tutorial record lengkap',u:''}];
+(function(){
+  const g=document.getElementById('videoLinks');g.innerHTML='';
+  const list=VIDEOS.filter(v=>/^https?:\/\//.test((v.u||'').trim()));
+  
+  list.forEach(v=>{const a=document.createElement('a');a.className='btn solid';a.textContent='▶ '+v.t;a.href=v.u.trim();a.target='_blank';a.rel='noopener';g.append(a);});
+  const wa=typeof WA_NUMBER!=='undefined'?WA_NUMBER:WA;
+  document.querySelectorAll('.feeproof').forEach(a=>{a.href='https://wa.me/'+wa+'?text='+encodeURIComponent('Halo, saya sudah selesai mengerjakan job blast. Jumlah nomor: ... Rekaman terlampir. Fee dikirim ke: ...');a.target='_blank';a.rel='noopener';});
+})();
+</script>
+</body>
+</html>
